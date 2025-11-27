@@ -1,16 +1,10 @@
-import { Activity, Bell, Wifi, Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SheetTrigger } from "@/components/SystemSidebar";
+import { Activity, Bell, Wifi } from "lucide-react";
 
-const SystemHeader = () => {
+const SystemHeader = ({ mobileMenuTrigger }: { mobileMenuTrigger?: React.ReactNode }) => {
   return (
     <header className="h-20 bg-card border-b border-border flex items-center justify-between px-4 lg:px-6 sticky top-0 z-50">
       {/* Mobile Menu Trigger */}
-      <SheetTrigger asChild className="lg:hidden">
-        <Button variant="ghost" size="icon">
-          <Menu className="w-6 h-6" />
-        </Button>
-      </SheetTrigger>
+      {mobileMenuTrigger}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
