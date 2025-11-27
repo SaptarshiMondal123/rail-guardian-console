@@ -1,21 +1,63 @@
-import { FileText, Download, Search } from "lucide-react";
+import { FileText, Download, Search, Filter, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Reports = () => {
   const reports = [
-    { name: "Daily_Detection_Report_2024-01-15.pdf", date: "2024-01-15", type: "Detection", confidence: "94%" },
-    { name: "Track_Fault_Analysis_Section_B.csv", date: "2024-01-14", type: "Fault", confidence: "91%" },
-    { name: "Weekly_Summary_Week_02.pdf", date: "2024-01-13", type: "Summary", confidence: "98%" },
-    { name: "Incident_Report_Animal_001.pdf", date: "2024-01-12", type: "Incident", confidence: "96%" },
-    { name: "Monthly_Analytics_December.pdf", date: "2024-01-10", type: "Analytics", confidence: "95%" },
+    {
+      id: "RPT-2024-001",
+      name: "Delhi-Mumbai Route Analysis",
+      date: "2024-01-15",
+      type: "Detection",
+      hazards: 24,
+      confidence: "96.2%",
+      status: "completed"
+    },
+    {
+      id: "RPT-2024-002",
+      name: "Track Fault Report - Section A",
+      date: "2024-01-14",
+      type: "Track Fault",
+      hazards: 8,
+      confidence: "94.8%",
+      status: "completed"
+    },
+    {
+      id: "RPT-2024-003",
+      name: "Weekly Safety Summary",
+      date: "2024-01-13",
+      type: "Analytics",
+      hazards: 156,
+      confidence: "95.5%",
+      status: "completed"
+    },
+    {
+      id: "RPT-2024-004",
+      name: "Obstacle Detection - Night Shift",
+      date: "2024-01-12",
+      type: "Detection",
+      hazards: 12,
+      confidence: "97.1%",
+      status: "completed"
+    },
+    {
+      id: "RPT-2024-005",
+      name: "Simulation Results - Scenario 3",
+      date: "2024-01-11",
+      type: "Simulation",
+      hazards: 0,
+      confidence: "N/A",
+      status: "completed"
+    },
   ];
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 lg:p-6 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Report Library</h2>
-          <p className="text-muted-foreground">Access and download system reports</p>
+          <h2 className="text-2xl lg:text-3xl font-bold">Report Library</h2>
+          <p className="text-muted-foreground">Access historical analysis and generated reports</p>
         </div>
         <Button>
           <FileText className="w-4 h-4 mr-2" />
@@ -23,81 +65,65 @@ const Reports = () => {
         </Button>
       </div>
 
-      {/* Search and Filter */}
+      {/* Filters & Search */}
       <div className="console-panel p-4">
-        <div className="flex gap-4">
-          <div className="flex-1 relative">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="md:col-span-2 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              type="text"
+            <Input
               placeholder="Search reports..."
-              className="w-full pl-10 pr-4 py-2 bg-secondary border border-border rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              className="pl-10 bg-background"
             />
           </div>
-          <select className="bg-secondary border border-border rounded px-4 py-2 text-sm">
-            <option>All Types</option>
-            <option>Detection</option>
-            <option>Fault</option>
-            <option>Incident</option>
-            <option>Analytics</option>
-          </select>
-          <select className="bg-secondary border border-border rounded px-4 py-2 text-sm">
-            <option>Last 7 Days</option>
-            <option>Last 30 Days</option>
-            <option>Custom Range</option>
-          </select>
+          <Button variant="outline" className="justify-start">
+            <Filter className="w-4 h-4 mr-2" />
+            Type: All
+          </Button>
+          <Button variant="outline" className="justify-start">
+            <Calendar className="w-4 h-4 mr-2" />
+            Date Range
+          </Button>
         </div>
       </div>
 
       {/* Reports Table */}
       <div className="console-panel">
-        <div className="console-panel-header">Available Reports</div>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="border-b border-border">
-              <tr className="text-left">
-                <th className="p-4 font-medium text-muted-foreground">File Name</th>
-                <th className="p-4 font-medium text-muted-foreground">Processed On</th>
-                <th className="p-4 font-medium text-muted-foreground">Type</th>
-                <th className="p-4 font-medium text-muted-foreground">Confidence</th>
-                <th className="p-4 font-medium text-muted-foreground">Actions</th>
+          <table className="w-full">
+            <thead className="bg-secondary/50 border-b border-border">
+              <tr className="text-left text-sm">
+                <th className="p-4">Report ID</th>
+                <th className="p-4">Name</th>
+                <th className="p-4">Type</th>
+                <th className="p-4">Date</th>
+                <th className="p-4">Hazards</th>
+                <th className="p-4">Confidence</th>
+                <th className="p-4">Status</th>
+                <th className="p-4">Actions</th>
               </tr>
             </thead>
-            <tbody>
-              {reports.map((report, index) => (
-                <tr key={index} className="border-b border-border hover:bg-secondary/50">
+            <tbody className="divide-y divide-border">
+              {reports.map((report) => (
+                <tr key={report.id} className="hover:bg-secondary/30 transition-colors">
+                  <td className="p-4 font-mono text-sm text-primary">{report.id}</td>
+                  <td className="p-4 font-medium">{report.name}</td>
                   <td className="p-4">
-                    <div className="flex items-center gap-3">
-                      <FileText className="w-5 h-5 text-primary" />
-                      <span className="font-medium">{report.name}</span>
-                    </div>
-                  </td>
-                  <td className="p-4 font-mono text-muted-foreground">{report.date}</td>
-                  <td className="p-4">
-                    <span className="px-2 py-1 rounded text-xs font-semibold bg-primary/20 text-primary">
+                    <span className="px-2 py-1 rounded text-xs bg-primary/20 text-primary">
                       {report.type}
                     </span>
                   </td>
+                  <td className="p-4 text-sm text-muted-foreground">{report.date}</td>
+                  <td className="p-4 text-center">{report.hazards}</td>
+                  <td className="p-4">{report.confidence}</td>
                   <td className="p-4">
-                    <div className="flex items-center gap-2">
-                      <div className="h-1.5 w-20 bg-secondary rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-safe"
-                          style={{ width: report.confidence }}
-                        ></div>
-                      </div>
-                      <span className="text-xs font-mono">{report.confidence}</span>
-                    </div>
+                    <span className="px-2 py-1 rounded text-xs bg-safe/20 text-safe">
+                      {report.status}
+                    </span>
                   </td>
                   <td className="p-4">
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline">
-                        <Download className="w-4 h-4 mr-1" />
-                        PDF
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Download className="w-4 h-4 mr-1" />
-                        CSV
+                      <Button variant="ghost" size="sm">
+                        <Download className="w-4 h-4" />
                       </Button>
                     </div>
                   </td>
@@ -105,6 +131,27 @@ const Reports = () => {
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* Stats Summary */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="console-panel p-6 text-center">
+          <FileText className="w-8 h-8 mx-auto mb-3 text-primary" />
+          <div className="text-2xl font-bold mb-1">247</div>
+          <div className="text-sm text-muted-foreground">Total Reports</div>
+        </div>
+        <div className="console-panel p-6 text-center">
+          <div className="text-2xl font-bold mb-1">2,438</div>
+          <div className="text-sm text-muted-foreground">Hazards Documented</div>
+        </div>
+        <div className="console-panel p-6 text-center">
+          <div className="text-2xl font-bold mb-1">95.8%</div>
+          <div className="text-sm text-muted-foreground">Avg Confidence</div>
+        </div>
+        <div className="console-panel p-6 text-center">
+          <div className="text-2xl font-bold mb-1">1.2 TB</div>
+          <div className="text-sm text-muted-foreground">Data Processed</div>
         </div>
       </div>
     </div>

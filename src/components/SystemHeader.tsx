@@ -1,8 +1,16 @@
-import { Activity, Bell, Wifi } from "lucide-react";
+import { Activity, Bell, Wifi, Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { SheetTrigger } from "@/components/SystemSidebar";
 
 const SystemHeader = () => {
   return (
-    <header className="h-20 bg-card border-b border-border flex items-center justify-between px-6 sticky top-0 z-50">
+    <header className="h-20 bg-card border-b border-border flex items-center justify-between px-4 lg:px-6 sticky top-0 z-50">
+      {/* Mobile Menu Trigger */}
+      <SheetTrigger asChild className="lg:hidden">
+        <Button variant="ghost" size="icon">
+          <Menu className="w-6 h-6" />
+        </Button>
+      </SheetTrigger>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
@@ -15,19 +23,19 @@ const SystemHeader = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3 lg:gap-6">
+        <div className="hidden md:flex items-center gap-2">
           <div className="w-2 h-2 bg-safe rounded-full pulse-glow"></div>
-          <span className="text-sm font-medium">SYSTEM ONLINE</span>
+          <span className="text-xs lg:text-sm font-medium">SYSTEM ONLINE</span>
         </div>
 
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="hidden sm:flex items-center gap-2 text-xs lg:text-sm text-muted-foreground">
           <Wifi className="w-4 h-4" />
           <span>Connected</span>
         </div>
 
         <button className="relative p-2 hover:bg-secondary rounded transition-colors">
-          <Bell className="w-5 h-5" />
+          <Bell className="w-4 h-4 lg:w-5 lg:h-5" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-critical rounded-full"></span>
         </button>
       </div>

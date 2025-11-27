@@ -11,7 +11,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-6">
       {/* System Status Header */}
       <div className="console-panel p-6 border-primary/30 glow-primary">
         <div className="flex items-center justify-between">
@@ -37,7 +37,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Status Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         <StatusCard
           title="Train Status"
           value="85 km/h"
