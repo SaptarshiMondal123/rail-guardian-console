@@ -10,8 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState } from "react";
+import { SheetContent } from "@/components/ui/sheet";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -60,9 +59,7 @@ const SidebarContent = () => (
   </>
 );
 
-const SystemSidebar = () => {
-  const [open, setOpen] = useState(false);
-
+const SystemSidebar = ({ onMobileClose }: { onMobileClose?: () => void }) => {
   return (
     <>
       {/* Desktop Sidebar */}
@@ -70,22 +67,20 @@ const SystemSidebar = () => {
         <SidebarContent />
       </aside>
 
-      {/* Mobile Sidebar */}
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="left" className="w-64 p-0 bg-sidebar border-sidebar-border lg:hidden">
-          <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
-              <span className="font-semibold">Navigation</span>
-              <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-            <SidebarContent />
+      {/* Mobile Sidebar - SheetContent only, trigger is in Layout */}
+      <SheetContent side="left" className="w-64 p-0 bg-sidebar border-sidebar-border lg:hidden">
+        <div className="flex flex-col h-full">
+          <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
+            <span className="font-semibold">Navigation</span>
+            <Button variant="ghost" size="icon" onClick={onMobileClose}>
+              <X className="w-5 h-5" />
+            </Button>
           </div>
-        </SheetContent>
-      </Sheet>
+          <SidebarContent />
+        </div>
+      </SheetContent>
     </>
   );
 };
 
-export { SystemSidebar, Sheet, SheetTrigger };
+export default SystemSidebar;
