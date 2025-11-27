@@ -2,7 +2,7 @@ import { Gamepad2, Zap } from "lucide-react";
 
 const Simulations = () => {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-6">
       <div>
         <h2 className="text-2xl font-bold">Simulation Center</h2>
         <p className="text-muted-foreground">Railway digital twin testing environment</p>

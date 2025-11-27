@@ -5,7 +5,7 @@ const TrackFault = () => {
   const faultTypes = ["Crack", "Sleeper Damage", "Misalignment", "Waterlogging", "Electrical Hazard"];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Track Fault Analysis</h2>

@@ -1,125 +1,202 @@
-import { Settings as SettingsIcon, Cpu, Database, Trash2 } from "lucide-react";
+import { Settings as SettingsIcon, Database, Cpu, Activity, Bell, User, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Card } from "@/components/ui/card";
 
 const Settings = () => {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 lg:p-6 space-y-6">
+      {/* Header */}
       <div>
-        <h2 className="text-2xl font-bold">System Settings</h2>
-        <p className="text-muted-foreground">Administrative console and configuration</p>
+        <h2 className="text-2xl lg:text-3xl font-bold">System Settings</h2>
+        <p className="text-muted-foreground">Configure and monitor system parameters</p>
       </div>
 
       {/* System Status */}
-      <div className="console-panel">
-        <div className="console-panel-header">
-          <div className="flex items-center gap-2">
-            <Cpu className="w-4 h-4" />
-            <span>System Resources</span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card className="p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded bg-primary/20">
+              <Cpu className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <div className="text-sm text-muted-foreground">CPU Usage</div>
+              <div className="text-2xl font-bold">45%</div>
+            </div>
+          </div>
+          <div className="h-2 bg-secondary rounded-full overflow-hidden">
+            <div className="h-full bg-primary" style={{ width: "45%" }} />
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded bg-warning/20">
+              <Activity className="w-5 h-5 text-warning" />
+            </div>
+            <div>
+              <div className="text-sm text-muted-foreground">GPU Usage</div>
+              <div className="text-2xl font-bold">72%</div>
+            </div>
+          </div>
+          <div className="h-2 bg-secondary rounded-full overflow-hidden">
+            <div className="h-full bg-warning" style={{ width: "72%" }} />
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded bg-safe/20">
+              <Database className="w-5 h-5 text-safe" />
+            </div>
+            <div>
+              <div className="text-sm text-muted-foreground">Storage</div>
+              <div className="text-2xl font-bold">234 GB</div>
+            </div>
+          </div>
+          <div className="h-2 bg-secondary rounded-full overflow-hidden">
+            <div className="h-full bg-safe" style={{ width: "58%" }} />
+          </div>
+        </Card>
+      </div>
+
+      {/* Settings Sections */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Model Configuration */}
+        <div className="console-panel">
+          <div className="console-panel-header">Model Configuration</div>
+          <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">Model Version</div>
+                <div className="text-sm text-muted-foreground">Current: v2.4.1</div>
+              </div>
+              <Button variant="outline" size="sm">Update</Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">Confidence Threshold</div>
+                <div className="text-sm text-muted-foreground">85%</div>
+              </div>
+              <Button variant="outline" size="sm">Adjust</Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">Detection Mode</div>
+                <div className="text-sm text-muted-foreground">Real-time + Batch</div>
+              </div>
+              <Switch defaultChecked />
+            </div>
           </div>
         </div>
-        <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
-            <div className="text-sm text-muted-foreground mb-2">GPU Status</div>
-            <div className="text-2xl font-bold text-safe mb-1">ONLINE</div>
-            <div className="text-xs text-muted-foreground">NVIDIA RTX 4090</div>
+
+        {/* Notifications */}
+        <div className="console-panel">
+          <div className="console-panel-header flex items-center gap-2">
+            <Bell className="w-4 h-4" />
+            <span>Notification Settings</span>
           </div>
-          <div>
-            <div className="text-sm text-muted-foreground mb-2">Model Version</div>
-            <div className="text-2xl font-bold mb-1">v2.4.1</div>
-            <div className="text-xs text-muted-foreground">Updated 2h ago</div>
+          <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">Critical Alerts</div>
+                <div className="text-sm text-muted-foreground">Instant notifications</div>
+              </div>
+              <Switch defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">Email Reports</div>
+                <div className="text-sm text-muted-foreground">Daily summary</div>
+              </div>
+              <Switch defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">SMS Alerts</div>
+                <div className="text-sm text-muted-foreground">Emergency only</div>
+              </div>
+              <Switch />
+            </div>
           </div>
-          <div>
-            <div className="text-sm text-muted-foreground mb-2">API Status</div>
-            <div className="text-2xl font-bold text-safe mb-1">ACTIVE</div>
-            <div className="text-xs text-muted-foreground">200 requests/min</div>
+        </div>
+
+        {/* User Management */}
+        <div className="console-panel">
+          <div className="console-panel-header flex items-center gap-2">
+            <User className="w-4 h-4" />
+            <span>User Management</span>
+          </div>
+          <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <div>
+                <div className="font-medium">Admin</div>
+                <div className="text-sm text-muted-foreground">Full access</div>
+              </div>
+              <span className="text-xs px-2 py-1 rounded bg-primary/20 text-primary">Active</span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-border">
+              <div>
+                <div className="font-medium">Operator</div>
+                <div className="text-sm text-muted-foreground">View & monitor</div>
+              </div>
+              <span className="text-xs px-2 py-1 rounded bg-safe/20 text-safe">Active</span>
+            </div>
+            <Button variant="outline" size="sm" className="w-full">
+              Add User
+            </Button>
+          </div>
+        </div>
+
+        {/* Security */}
+        <div className="console-panel">
+          <div className="console-panel-header flex items-center gap-2">
+            <Shield className="w-4 h-4" />
+            <span>Security & Access</span>
+          </div>
+          <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">Two-Factor Auth</div>
+                <div className="text-sm text-muted-foreground">Enhanced security</div>
+              </div>
+              <Switch defaultChecked />
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">API Access</div>
+                <div className="text-sm text-muted-foreground">External integrations</div>
+              </div>
+              <Switch />
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="font-medium">Audit Logs</div>
+                <div className="text-sm text-muted-foreground">Track system access</div>
+              </div>
+              <Switch defaultChecked />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Database Management */}
+      {/* Data Management */}
       <div className="console-panel">
-        <div className="console-panel-header">
-          <div className="flex items-center gap-2">
-            <Database className="w-4 h-4" />
-            <span>Data Management</span>
-          </div>
-        </div>
-        <div className="p-6 space-y-4">
-          <div className="flex items-center justify-between p-4 border border-border rounded">
-            <div>
-              <h4 className="font-semibold mb-1">Upload History</h4>
-              <p className="text-sm text-muted-foreground">Clear all uploaded videos and images</p>
-            </div>
-            <Button variant="outline" size="sm">
-              <Trash2 className="w-4 h-4 mr-2" />
-              Clear Uploads
+        <div className="console-panel-header">Data Management</div>
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button variant="outline">
+              <Database className="w-4 h-4 mr-2" />
+              Export Database
             </Button>
-          </div>
-
-          <div className="flex items-center justify-between p-4 border border-border rounded">
-            <div>
-              <h4 className="font-semibold mb-1">Output Cache</h4>
-              <p className="text-sm text-muted-foreground">Remove processed detection outputs</p>
-            </div>
-            <Button variant="outline" size="sm">
-              <Trash2 className="w-4 h-4 mr-2" />
-              Clear Outputs
+            <Button variant="outline">
+              <SettingsIcon className="w-4 h-4 mr-2" />
+              Clear Cache
             </Button>
-          </div>
-
-          <div className="flex items-center justify-between p-4 border border-border rounded">
-            <div>
-              <h4 className="font-semibold mb-1">Analytics Data</h4>
-              <p className="text-sm text-muted-foreground">Reset all analytics and statistics</p>
-            </div>
-            <Button variant="outline" size="sm">
-              <Trash2 className="w-4 h-4 mr-2" />
-              Reset Analytics
+            <Button variant="outline" className="text-critical hover:text-critical">
+              <Database className="w-4 h-4 mr-2" />
+              Clear All Data
             </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Configuration */}
-      <div className="console-panel">
-        <div className="console-panel-header">
-          <div className="flex items-center gap-2">
-            <SettingsIcon className="w-4 h-4" />
-            <span>Detection Configuration</span>
-          </div>
-        </div>
-        <div className="p-6 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-medium mb-2 block">Confidence Threshold</label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                defaultValue="85"
-                className="w-full"
-              />
-              <div className="text-xs text-muted-foreground mt-1">85%</div>
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Detection Sensitivity</label>
-              <select className="w-full bg-secondary border border-border rounded px-3 py-2 text-sm">
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between p-4 border border-border rounded">
-            <div>
-              <h4 className="font-semibold mb-1">Real-time Processing</h4>
-              <p className="text-sm text-muted-foreground">Enable live video stream analysis</p>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" defaultChecked className="sr-only peer" />
-              <div className="w-11 h-6 bg-secondary peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-            </label>
           </div>
         </div>
       </div>

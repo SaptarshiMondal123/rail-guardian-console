@@ -7,10 +7,14 @@ import {
   Gamepad2,
   FileText,
   Settings,
+  X,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useState } from "react";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Detection", href: "/detection", icon: ScanEye },
   { name: "Track Fault", href: "/track-fault", icon: AlertTriangle },
   { name: "Analytics", href: "/analytics", icon: BarChart3 },
@@ -19,43 +23,69 @@ const navigation = [
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
-const SystemSidebar = () => {
-  return (
-    <aside className="w-64 bg-sidebar border-r border-sidebar-border min-h-screen sticky top-20 flex flex-col">
-      <nav className="flex-1 px-3 py-6 space-y-1">
-        {navigation.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.href}
-            end={item.href === "/"}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-3 rounded text-sm font-medium transition-all ${
-                isActive
-                  ? "bg-sidebar-accent text-sidebar-primary border-l-2 border-sidebar-primary"
-                  : "text-sidebar-foreground hover:bg-sidebar-accent/50"
-              }`
-            }
-          >
-            <item.icon className="w-5 h-5" />
-            <span>{item.name}</span>
-          </NavLink>
-        ))}
-      </nav>
+const SidebarContent = () => (
+  <>
+    <nav className="flex-1 px-3 py-6 space-y-1">
+      {navigation.map((item) => (
+        <NavLink
+          key={item.name}
+          to={item.href}
+          end={item.href === "/"}
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded text-sm font-medium transition-all ${
+              isActive
+                ? "bg-sidebar-accent text-sidebar-primary border-l-2 border-sidebar-primary"
+                : "text-sidebar-foreground hover:bg-sidebar-accent/50"
+            }`
+          }
+        >
+          <item.icon className="w-5 h-5" />
+          <span>{item.name}</span>
+        </NavLink>
+      ))}
+    </nav>
 
-      <div className="p-4 border-t border-sidebar-border">
-        <div className="text-xs text-muted-foreground space-y-1">
-          <div className="flex justify-between">
-            <span>Model Version:</span>
-            <span className="text-foreground">v2.4.1</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Last Updated:</span>
-            <span className="text-foreground">2h ago</span>
-          </div>
+    <div className="p-4 border-t border-sidebar-border">
+      <div className="text-xs text-muted-foreground space-y-1">
+        <div className="flex justify-between">
+          <span>Model Version:</span>
+          <span className="text-foreground">v2.4.1</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Last Updated:</span>
+          <span className="text-foreground">2h ago</span>
         </div>
       </div>
-    </aside>
+    </div>
+  </>
+);
+
+const SystemSidebar = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden lg:flex w-64 bg-sidebar border-r border-sidebar-border min-h-screen sticky top-20 flex-col">
+        <SidebarContent />
+      </aside>
+
+      {/* Mobile Sidebar */}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent side="left" className="w-64 p-0 bg-sidebar border-sidebar-border lg:hidden">
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
+              <span className="font-semibold">Navigation</span>
+              <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
+            <SidebarContent />
+          </div>
+        </SheetContent>
+      </Sheet>
+    </>
   );
 };
 
-export default SystemSidebar;
+export { SystemSidebar, Sheet, SheetTrigger };

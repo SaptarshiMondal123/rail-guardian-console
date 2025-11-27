@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import SystemHeader from "@/components/SystemHeader";
-import SystemSidebar from "@/components/SystemSidebar";
+import { SystemSidebar } from "@/components/SystemSidebar";
 
 const Layout = () => {
   return (
@@ -8,7 +8,7 @@ const Layout = () => {
       <SystemHeader />
       <div className="flex w-full">
         <SystemSidebar />
-        <main className="flex-1 min-h-[calc(100vh-5rem)]">
+        <main className="flex-1 min-h-[calc(100vh-5rem)] overflow-x-hidden">
           <Outlet />
         </main>
       </div>
